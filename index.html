@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Bảng điểm Pickleball</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 20px; }
+    .team { display: inline-block; width: 200px; margin: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 8px; }
+    .score { font-size: 32px; margin: 10px 0; }
+    button { margin: 5px; padding: 8px 12px; }
+  </style>
+</head>
+<body>
+
+  <h2>Bảng điểm Pickleball 🎾</h2>
+
+  <div class="team">
+    <input type="text" id="teamAName" value="Đội A"><br>
+    <div>Người giao: <span id="serverA">🎾</span></div>
+    <div class="score" id="scoreA">0</div>
+    <button onclick="changeScore('A', 1)">+1</button>
+    <button onclick="changeScore('A', -1)">–1</button>
+  </div>
+
+  <div class="team">
+    <input type="text" id="teamBName" value="Đội B"><br>
+    <div>Người giao: <span id="serverB">—</span></div>
+    <div class="score" id="scoreB">0</div>
+    <button onclick="changeScore('B', 1)">+1</button>
+    <button onclick="changeScore('B', -1)">–1</button>
+  </div>
+
+  <br><br>
+  <button onclick="switchServe()">🔄 Chuyển lượt giao</button>
+  <button onclick="resetGame()">🧹 Reset</button>
+
+  <script>
+    let scoreA = 0;
+    let scoreB = 0;
+    let currentServer = 'A';
+
+    function changeScore(team, delta) {
+      if (team === 'A') {
+        scoreA = Math.max(0, scoreA + delta);
+        document.getElementById('scoreA').textContent = scoreA;
+      } else {
+        scoreB = Math.max(0, scoreB + delta);
+        document.getElementById('scoreB').textContent = scoreB;
+      }
+    }
+
+    function switchServe() {
+      currentServer = currentServer === 'A' ? 'B' : 'A';
+      document.getElementById('serverA').textContent = currentServer === 'A' ? '🎾' : '—';
+      document.getElementById('serverB').textContent = currentServer === 'B' ? '🎾' : '—';
+    }
+
+    function resetGame() {
+      scoreA = 0;
+      scoreB = 0;
+      currentServer = 'A';
+      document.getElementById('scoreA').textContent = scoreA;
+      document.getElementById('scoreB').textContent = scoreB;
+      document.getElementById('serverA').textContent = '🎾';
+      document.getElementById('serverB').textContent = '—';
+    }
+  </script>
+
+</body>
+</html>
